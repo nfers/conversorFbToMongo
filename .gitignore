@@ -1,0 +1,5 @@
+*./Debug
+*.local
+*.Skins
+*./__history
+*./Win32
