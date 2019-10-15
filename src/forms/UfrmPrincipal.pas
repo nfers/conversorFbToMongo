@@ -20,6 +20,7 @@ type
     lblMongoDb: TLabel;
     procedure btnMigrarClick(Sender: TObject);
     procedure btnDbFbClick(Sender: TObject);
+    procedure btnBdMongoClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -34,6 +35,11 @@ implementation
 {$R *.dfm}
 uses UdmConexao;
 
+procedure TfrmPrincipal.btnBdMongoClick(Sender: TObject);
+begin
+  dmConexao.ConectaMongo;
+end;
+
 procedure TfrmPrincipal.btnDbFbClick(Sender: TObject);
 begin
   dmConexao.ConectaFirebird('C:\Users\Desenvolvedor\Desktop\Tarefas\Tron x Tron\965408\948405.IDB');
@@ -45,6 +51,7 @@ var
 begin
   Tabelas    := TStringList.Create;
   try
+   dmConexao.ConFb.GetTableNames('', '', '', Tabelas, [osMy], [tkTable], true);
 
   finally
 

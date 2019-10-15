@@ -26,7 +26,7 @@ type
   public
     { Public declarations }
     function ConectaFirebird(sCaminho: string): Boolean;
-    function ConectaMongo(sCaminho: string): TFDConnection;
+    procedure ConectaMongo;
   end;
 
 var
@@ -71,16 +71,39 @@ begin
       frmPrincipal.mmLogPrinc.Lines.Add(Format('Erro: %s' ,[E.Message]));
      end;
    end;
-
   finally
    Result:= True;
   end;
 end;
 
-
-function TdmConexao.ConectaMongo(sCaminho: string): TFDConnection;
+procedure TdmConexao.ConectaMongo;
 begin
-
+  ConMongo    := TFDConnection.Create(Nil);
+  try
+   ConMongo.DriverName             := 'Mongo';
+   ConMongo.Params.Database        := 'db_migrate';
+   try
+    ConMongo.Connected          := True;
+    if  ConMongo.Connected = True then
+     begin
+      frmPrincipal.lblMongoDb.Caption := ConMongo.Params.Database;
+      frmPrincipal.mmLogPrinc.Lines.Add(Format('Conectado no banco: %s' ,[ConMongo.Params.Database]));
+     end;
+   except
+    on E: EFDDBEngineException do
+     case E.Kind of
+      ekUserPwdInvalid:
+       frmPrincipal.mmLogPrinc.Lines.Add(Format('Erro: %s' ,[E.Message]));
+      ekUserPwdExpired:
+       frmPrincipal.mmLogPrinc.Lines.Add(Format('Erro: %s' ,[E.Message]));
+      ekServerGone:
+       frmPrincipal.mmLogPrinc.Lines.Add(Format('Erro: %s' ,[E.Message]));
+      else                // other issues
+      frmPrincipal.mmLogPrinc.Lines.Add(Format('Erro: %s' ,[E.Message]));
+     end;
+   end;
+  finally
+  end;
 end;
 
 end.

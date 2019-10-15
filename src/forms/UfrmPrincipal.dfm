@@ -144,6 +144,7 @@ object frmPrincipal: TfrmPrincipal
       02045647397B836B57B3A2866BD6BD9C7CEED3AE89FCDCB68EFFCAA784F7B293
       75E5957B62C8725E4CA02C241D3F000000000000000000000000}
     Layout = blGlyphBottom
+    OnClick = btnBdMongoClick
   end
   object lblFirebird: TLabel
     Left = 39
