@@ -2,9 +2,10 @@ program conversorFbToMongo;
 
 uses
   Vcl.Forms,
-  UfrmPrincipal in '..\src\forms\UfrmPrincipal.pas' {Form1},
+  UfrmPrincipal in '..\src\forms\UfrmPrincipal.pas' {frmPrincipal},
   Vcl.Themes,
-  Vcl.Styles;
+  Vcl.Styles,
+  UdmConexao in '..\src\units\UdmConexao.pas' {dmConexao: TDataModule};
 
 {$R *.res}
 
@@ -12,6 +13,7 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   TStyleManager.TrySetStyle('Cobalt XEMedia');
-  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TfrmPrincipal, frmPrincipal);
+  Application.CreateForm(TdmConexao, dmConexao);
   Application.Run;
 end.

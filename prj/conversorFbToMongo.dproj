@@ -94,8 +94,13 @@
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
         <DCCReference Include="..\src\forms\UfrmPrincipal.pas">
-            <Form>Form1</Form>
+            <Form>frmPrincipal</Form>
             <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\src\units\UdmConexao.pas">
+            <Form>dmConexao</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
