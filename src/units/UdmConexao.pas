@@ -9,7 +9,8 @@ uses
   FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf, Data.DB,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, FireDAC.Phys.MongoDBDataSet,
   FireDAC.Comp.BatchMove.DataSet, FireDAC.Comp.BatchMove,
-  FireDAC.Comp.BatchMove.SQL;
+  FireDAC.Comp.BatchMove.SQL, FireDAC.Phys.FBDef, FireDAC.Phys.IBBase,
+  FireDAC.Phys.FB;
 
 type
   TdmConexao = class(TDataModule)
@@ -19,10 +20,13 @@ type
     BatchMove: TFDBatchMove;
     BatchMoveDataSetWriter: TFDBatchMoveDataSetWriter;
     qryMongo: TFDMongoQuery;
+    FDPhysFBDriverLink1: TFDPhysFBDriverLink;
   private
     { Private declarations }
   public
     { Public declarations }
+    function ConectaFirebird(sCaminho: string): Boolean;
+    function ConectaMongo(sCaminho: string): TFDConnection;
   end;
 
 var
@@ -33,5 +37,50 @@ implementation
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
 {$R *.dfm}
+
+uses UfrmPrincipal;
+
+{ TdmConexao }
+
+function TdmConexao.ConectaFirebird(sCaminho: string): Boolean;
+begin
+  Result := False;
+  ConFb  := TFDConnection.Create(Nil);
+  try
+   ConFb.DriverName             := 'FB';
+   ConFb.Params.Database        := sCaminho;
+   ConFb.Params.UserName        := 'SYSDBA';
+   ConFb.Params.Password        := 'masterkey';
+   try
+    ConFb.Connected          := True;
+    if  ConFb.Connected = True then
+     begin
+      frmPrincipal.lblFirebird.Caption := sCaminho;
+      frmPrincipal.mmLogPrinc.Lines.Add(Format('Conectado no banco: %s' ,[sCaminho]));
+     end;
+   except
+    on E: EFDDBEngineException do
+     case E.Kind of
+      ekUserPwdInvalid:
+       frmPrincipal.mmLogPrinc.Lines.Add(Format('Erro: %s' ,[E.Message]));
+      ekUserPwdExpired:
+       frmPrincipal.mmLogPrinc.Lines.Add(Format('Erro: %s' ,[E.Message]));
+      ekServerGone:
+       frmPrincipal.mmLogPrinc.Lines.Add(Format('Erro: %s' ,[E.Message]));
+      else                // other issues
+      frmPrincipal.mmLogPrinc.Lines.Add(Format('Erro: %s' ,[E.Message]));
+     end;
+   end;
+
+  finally
+   Result:= True;
+  end;
+end;
+
+
+function TdmConexao.ConectaMongo(sCaminho: string): TFDConnection;
+begin
+
+end;
 
 end.

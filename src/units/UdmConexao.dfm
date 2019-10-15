@@ -31,4 +31,9 @@ object dmConexao: TdmConexao
     Left = 160
     Top = 168
   end
+  object FDPhysFBDriverLink1: TFDPhysFBDriverLink
+    VendorLib = 'C:\Program Files (x86)\Tron\Folha\fbclient.dll'
+    Left = 48
+    Top = 160
+  end
 end

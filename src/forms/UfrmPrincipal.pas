@@ -14,7 +14,12 @@ type
     pnlPrinc: TPanel;
     mmLogPrinc: TMemo;
     btnDbFb: TSpeedButton;
-    SpeedButton1: TSpeedButton;
+    btnMigrar: TSpeedButton;
+    btnBdMongo: TSpeedButton;
+    lblFirebird: TLabel;
+    lblMongoDb: TLabel;
+    procedure btnMigrarClick(Sender: TObject);
+    procedure btnDbFbClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -27,5 +32,24 @@ var
 implementation
 
 {$R *.dfm}
+uses UdmConexao;
+
+procedure TfrmPrincipal.btnDbFbClick(Sender: TObject);
+begin
+  dmConexao.ConectaFirebird('C:\Users\Desenvolvedor\Desktop\Tarefas\Tron x Tron\965408\948405.IDB');
+end;
+
+procedure TfrmPrincipal.btnMigrarClick(Sender: TObject);
+var
+  Tabelas: TStringList;
+begin
+  Tabelas    := TStringList.Create;
+  try
+
+  finally
+
+  end;
+end;
+
 
 end.
