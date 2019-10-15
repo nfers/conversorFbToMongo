@@ -10,17 +10,22 @@ uses
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, FireDAC.Phys.MongoDBDataSet,
   FireDAC.Comp.BatchMove.DataSet, FireDAC.Comp.BatchMove,
   FireDAC.Comp.BatchMove.SQL, FireDAC.Phys.FBDef, FireDAC.Phys.IBBase,
-  FireDAC.Phys.FB;
+  FireDAC.Phys.FB, FireDAC.Phys.MongoDB, FireDAC.Phys.MongoDBDef, System.Rtti,
+  System.JSON.Types, System.JSON.Readers, System.JSON.BSON,
+  System.JSON.Builders, FireDAC.Phys.MongoDBWrapper, FireDAC.Comp.UI;
 
 type
   TdmConexao = class(TDataModule)
     ConFb: TFDConnection;
-    ConMongo: TFDConnection;
     BatchMoveSqlReader: TFDBatchMoveSQLReader;
     BatchMove: TFDBatchMove;
     BatchMoveDataSetWriter: TFDBatchMoveDataSetWriter;
-    qryMongo: TFDMongoQuery;
     FDPhysFBDriverLink1: TFDPhysFBDriverLink;
+    ConMongo: TFDConnection;
+    FDGUIxWaitCursor1: TFDGUIxWaitCursor;
+    FDPhysMongoDriverLink1: TFDPhysMongoDriverLink;
+    MongoConnection: TFDConnection;
+    qryMongo: TFDMongoQuery;
   private
     { Private declarations }
   public
